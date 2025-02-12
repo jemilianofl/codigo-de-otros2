@@ -35,34 +35,28 @@ formulario.onsubmit = function (event) {
     const nacionalidadTexto = nacionalidades[nacionalidad] || "Desconocida";
 
     // Para no usar multiples createElement se usa una función genérica que accese a estos, con innerHTML simplificamos la estructura
-    // Función para crear elementos <p>
-    const crearElemento = (descripcion, valor) => {
-      const contenedor = document.createElement("p");
-      contenedor.innerHTML = `<strong>${descripcion}:</strong> ${valor}`;
-      return contenedor;
-  };
+    function crearElemento(descripcion, valor) {
+        const contenedor = document.createElement("p");
+        contenedor.innerHTML = `<strong>${descripcion}:</strong> ${valor}`;
+        return contenedor;
+    }
 
-  // Creación del contenedor para el invitado
-  const elementoLista = document.createElement("div");
-  elementoLista.classList.add("elemento-lista");
+    // Se creo el div que actuara de contenedor de la informacion
+    const elementoLista = document.createElement("div");
+    // Se le agrega la clase del CSS solo para estilizar
+    elementoLista.classList.add("elemento-lista");
 
-  // Agregar datos del invitado
-  elementoLista.appendChild(crearElemento("Nombre", nombre));
-  elementoLista.appendChild(crearElemento("Edad", edad));
-  elementoLista.appendChild(crearElemento("Nacionalidad", nacionalidadTexto));
+    elementoLista.appendChild(crearElemento("Nombre", nombre));
+    elementoLista.appendChild(crearElemento("Edad", edad));
+    elementoLista.appendChild(crearElemento("Nacionalidad", nacionalidadTexto));
 
-  // Creación del botón de eliminar
-  const botonBorrar = document.createElement("button");
-  botonBorrar.textContent = "Eliminar invitado";
-  botonBorrar.classList.add("boton-borrar");
-  botonBorrar.onclick = () => elementoLista.remove();
+    // Se accede al boton, ademas de asignarle un texto, estilo y un evento
+    const botonBorrar = document.createElement("button");
+    botonBorrar.textContent = "Eliminar invitado";
+    botonBorrar.classList.add("boton-borrar");
+    botonBorrar.onclick = () => elementoLista.remove();
 
-  // Agregar botón de eliminar al contenedor
-  elementoLista.appendChild(botonBorrar);
-
-  // Agregar invitado a la lista de invitados
-  document.getElementById("lista-de-invitados").appendChild(elementoLista);
-
-  // Limpiar los campos del formulario después de agregar un invitado
-  formulario.reset();
+    elementoLista.appendChild(botonBorrar);
+    // Se asegura que el nuevo elemento se agregue a la lista
+    document.getElementById("lista-invitados").appendChild(elementoLista);
 };
